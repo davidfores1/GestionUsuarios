@@ -1,0 +1,11 @@
+Lenguaje: Java
+Type: Mave 
+Java Version: 11
+Spring Boot Version: 2.3.3
+Dependencias: Spring Web
+              MySQL Driver
+              Spring Web
+              Spring Boot DevTools
+    
+
+ 

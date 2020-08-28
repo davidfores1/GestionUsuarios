@@ -1,0 +1,84 @@
+<div class="card border-primary" style="max-width: 40rem;">
+    <div class="card-header">
+        <h6 style="color: dodgerblue;">Gestión de usuarios</h6>
+    </div>
+
+    <div class="card-body text-primary" style="width: auto; margin: auto auto;">
+
+        <h6 class="card-title">Parametros de busqueda</h6>
+        <div style="margin-bottom: 8px;">
+            <button class="btn btn-primary btn-sm">Consultar</button>
+            <button class="btn btn-primary btn-sm">Limpiar</button>
+        </div>
+
+        <div class="form-group row">
+            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm" style="max-width: 17%; padding-right: 1px;">Nombre</label>
+            <div class="col-sm-7">
+                <input type="email" class="form-control form-control-sm" id="colFormLabelSm">
+            </div>
+        </div>
+
+        <h6 class="card-title">Lista de usuarios</h6>
+        <table class="table table-bordered table-striped" style="width:80%">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Rol</th>
+                    <th>activo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of usuarios">
+                    <td>{{usuario.id_usuario}}</td>
+                    <td>{{usuario.nombre}}</td>
+                    <td>{{usuario.id_rol.nombre}}</td>
+                    <td>{{usuario.activo}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <form (ngSubmit)="create()">
+            <h6 class="card-title">Información del Usuario</h6>
+            <div>
+                <button class="btn btn-primary btn-sm">Guardar</button>
+                <button class="btn btn-primary btn-sm">Editar</button>
+                <button class="btn btn-primary btn-sm">Eliminar</button>
+            </div>
+            <br>
+            <div class="form-group row">
+                <label for="id" class="col-sm-2 col-form-label col-form-label-sm">Id</label>
+                <div class="col-sm-7">
+                    <input type="number" class="form-control form-control-sm" [(ngModel)]="usu.id_usuario" name="id" readonly>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="nombre" class="col-sm-2 col-form-label col-form-label-sm">Nombre</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="usu.nombre" name="nombre">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm" style="max-width: 17%; padding-right: 1px;">Nombre</label>
+                <div class="col-sm-7">
+                    <select name="" class="form-control form-control-sm" [(ngModel)]="usu.id_rol" name="rol">
+                        <option>Seleccione..</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Auditor</option>
+                        <option value="3">Auxiliar</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="activo" class="col-sm-2 col-form-label col-form-label-sm">Activo</label>
+                <div class="col-sm-7">
+                    <label><input type="radio" name="activo" [(ngModel)]="usu.activo" value="S"> SI</label>
+                    <label><input type="radio" name="activo" [(ngModel)]="usu.activo" value="N"> NO</label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
