@@ -52,7 +52,7 @@ public class RolRestController {
 		return rolService.save(usuario);
   }
 	
-	@PutMapping("/usuarios/{id}")
+	@PutMapping("/usuarios/update/{id}")
 	@ResponseStatus(HttpStatus.CREATED) 
 	public Usuario update(@RequestBody Usuario usuario,@PathVariable Long id) {
 		Usuario usuarioActual = rolService.findById(id);

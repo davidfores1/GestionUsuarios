@@ -12,14 +12,14 @@
         </div>
 
         <div class="form-group row">
-            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm" style="max-width: 17%; padding-right: 1px;">Nombre</label>
+            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm" style="max-width: 20%; padding-right: 1px;">Nombre</label>
             <div class="col-sm-7">
-                <input type="email" class="form-control form-control-sm" id="colFormLabelSm">
+                <input type="text" class="form-control form-control-sm" id="colFormLabelSm">
             </div>
         </div>
 
         <h6 class="card-title">Lista de usuarios</h6>
-        <table class="table table-bordered table-striped" style="width:80%">
+        <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>id</th>
@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let usuario of usuarios">
+                <tr *ngFor="let usuario of usuarios" (click)="selectUser(usuario)">
                     <td>{{usuario.id_usuario}}</td>
                     <td>{{usuario.nombre}}</td>
                     <td>{{usuario.id_rol.nombre}}</td>
@@ -41,9 +41,9 @@
         <form (ngSubmit)="create()">
             <h6 class="card-title">Información del Usuario</h6>
             <div>
-                <button class="btn btn-primary btn-sm">Guardar</button>
-                <button class="btn btn-primary btn-sm">Editar</button>
-                <button class="btn btn-primary btn-sm">Eliminar</button>
+                <button class="btn btn-primary btn-sm" (click)='create()'>Guardar</button>
+                <button class="btn btn-primary btn-sm" (click)='create()'>Editar</button>
+                <button class="btn btn-primary btn-sm" (click)='delete(usuario)'>Eliminar</button>
             </div>
             <br>
             <div class="form-group row">
@@ -54,17 +54,16 @@
             </div>
 
             <div class="form-group row">
-                <label for="nombre" class="col-sm-2 col-form-label col-form-label-sm">Nombre</label>
+                <label for="nombre" class="col-sm-2 col-form-label col-form-label-sm " style="max-width: 20%; padding-right: 3px;">Nombre</label>
                 <div class="col-sm-7">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="usu.nombre" name="nombre">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm" style="max-width: 17%; padding-right: 1px;">Nombre</label>
+                <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm" style="max-width: 17%;">Rol</label>
                 <div class="col-sm-7">
-                    <select name="" class="form-control form-control-sm" [(ngModel)]="usu.id_rol" name="rol">
-                        <option>Seleccione..</option>
+                    <select class="form-control form-control-sm" [(ngModel)]="user" name="rol">
                         <option value="1">Administrador</option>
                         <option value="2">Auditor</option>
                         <option value="3">Auxiliar</option>
@@ -73,10 +72,10 @@
             </div>
 
             <div class="form-group row">
-                <label for="activo" class="col-sm-2 col-form-label col-form-label-sm">Activo</label>
+                <label for="activo" class="col-sm-2 col-form-label col-form-label-sm" style="padding-right: 4px;">Activo</label>
                 <div class="col-sm-7">
-                    <label><input type="radio" name="activo" [(ngModel)]="usu.activo" value="S"> SI</label>
-                    <label><input type="radio" name="activo" [(ngModel)]="usu.activo" value="N"> NO</label>
+                    <label><input type="radio" name="activo" [(ngModel)]="usu.activo" value="SI"> SI</label>
+                    <label><input type="radio" name="activo" [(ngModel)]="usu.activo" value="NO"> NO</label>
                 </div>
             </div>
         </form>

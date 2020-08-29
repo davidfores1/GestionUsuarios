@@ -50,11 +50,11 @@ CREATE TABLE `usuario` (
   `id_usuario` int NOT NULL AUTO_INCREMENT,
   `id_rol` int NOT NULL,
   `nombre` varchar(50) DEFAULT NULL,
-  `activo` char(1) DEFAULT NULL,
+  `activo` char(2) DEFAULT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `id_rol` (`id_rol`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id_rol`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,1,'David Forero','S'),(3,2,'Anthony Benavides','S'),(4,3,'Jhonatan Barrero purba','N'),(6,2,'Carlos Lopez','S'),(7,2,'doce Benavides','S'),(8,2,'Lore prueba','S');
+INSERT INTO `usuario` VALUES (1,1,'David Forero','SI'),(3,2,'Anthony ','SI'),(13,3,'Rodrigo casas','NO');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-28 11:01:15
+-- Dump completed on 2020-08-28 22:45:29

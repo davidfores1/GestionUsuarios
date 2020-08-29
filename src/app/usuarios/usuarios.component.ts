@@ -21,8 +21,32 @@ export class UsuariosComponent implements OnInit {
     );
   }
 
-  public create(): void{
-    this.usuarioService.create(this.usu).subscribe();
+  selectUser(user: Usuario) {
+    this.usu = user;
+  }
+ 
+  create(): void {
+    this.usuarioService.create(this.usu)
+      .subscribe(usu => {
+        console.log(usu);
+      }
+      );
+  }
+
+  update():void{
+    this.usuarioService.update(this.usu)
+    .subscribe( usu => {
+      console.log(usu); 
+    },);
+  }
+
+  delete() {
+    this.usuarioService.delete(this.usu['id_usuario']).subscribe(res => {
+      console.log(res);
+      location.reload();
+    }, error1 => {
+      console.error(error1);
+    });
   }
 
 }
