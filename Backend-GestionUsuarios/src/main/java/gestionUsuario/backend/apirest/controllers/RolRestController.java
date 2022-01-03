@@ -29,19 +29,16 @@ public class RolRestController {
 	private IService rolService;
 
 	
-	@GetMapping("/rol")
-	public List<Rol> index(){
+	@GetMapping("/usuarios")
+	public List<Usuario> index(){
 		return rolService.findAll();
 	}
-	
-	@GetMapping("/usuarios")
-	public List<Usuario> listarUsuarios(){
-		return rolService.findAllUsuario();
-	}
+
 	
 	@GetMapping("/usuarios/{id}")
-	public Usuario show(@PathVariable Long id_usuario){
-		return rolService.findById(id_usuario);
+	public Usuario show(@PathVariable Long id){
+
+		return rolService.findById(id);
 	}
 	
 	

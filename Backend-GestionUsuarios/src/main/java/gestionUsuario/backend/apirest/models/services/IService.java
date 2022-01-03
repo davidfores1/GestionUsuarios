@@ -6,12 +6,11 @@ import gestionUsuario.backend.apirest.models.entity.Rol;
 import gestionUsuario.backend.apirest.models.entity.Usuario;
 
 public interface IService {
+
 	
-	public List<Rol>findAll();
+	public List<Usuario> findAll();
 	
-	public List<Usuario> findAllUsuario();
-	
-	public Usuario findById(Long id_usuario);
+	public Usuario findById(Long id);
 	
 	public Usuario save(Usuario usuario);
 	
