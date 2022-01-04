@@ -32,24 +32,24 @@
                 <tr *ngFor="let usuario of usuarios" (click)="selectUser(usuario)">
                     <td>{{usuario.id_usuario}}</td>
                     <td>{{usuario.nombre}}</td>
-                    <td>{{usuario.id_rol.nombre}}</td>
+                    <td>{{usuario.rol.nombre}}</td>
                     <td>{{usuario.activo}}</td>
                 </tr>
             </tbody>
         </table>
         <br>
-        <form (ngSubmit)="create()">
+        <form>
             <h6 class="card-title">Información del Usuario</h6>
             <div>
-                <button class="btn btn-primary btn-sm" (click)='create()'>Guardar</button>
-                <button class="btn btn-primary btn-sm" (click)='create()'>Editar</button>
+                <button class="btn btn-primary btn-sm" (click)='create(usu)'>Guardar</button>
+                <button class="btn btn-primary btn-sm" (click)='update(usu)'>Editar</button>
                 <button class="btn btn-primary btn-sm" (click)='delete(usuario)'>Eliminar</button>
             </div>
             <br>
-            <div class="form-group row">
+            <div class="form-group row" *ngIf="isPresent">
                 <label for="id" class="col-sm-2 col-form-label col-form-label-sm">Id</label>
                 <div class="col-sm-7">
-                    <input type="number" class="form-control form-control-sm" [(ngModel)]="usu.id_usuario" name="id" readonly>
+                    <input type="number" class="form-control form-control-sm" [value]="usu.id_usuario" readonly>
                 </div>
             </div>
 
@@ -63,10 +63,8 @@
             <div class="form-group row">
                 <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm" style="max-width: 17%;">Rol</label>
                 <div class="col-sm-7">
-                    <select class="form-control form-control-sm" [(ngModel)]="user" name="rol">
-                        <option value="1">Administrador</option>
-                        <option value="2">Auditor</option>
-                        <option value="3">Auxiliar</option>
+                    <select class="form-control form-control-sm" [(ngModel)]="rol" name="rol.id">
+                        <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
                     </select>
                 </div>
             </div>
@@ -74,8 +72,8 @@
             <div class="form-group row">
                 <label for="activo" class="col-sm-2 col-form-label col-form-label-sm" style="padding-right: 4px;">Activo</label>
                 <div class="col-sm-7">
-                    <label><input type="radio" name="activo" [(ngModel)]="usu.activo" value="SI"> SI</label>
-                    <label><input type="radio" name="activo" [(ngModel)]="usu.activo" value="NO"> NO</label>
+                    <label><input type="radio" [(ngModel)]="usu.activo" name="activo" value="S"> SI</label>
+                    <label><input type="radio" [(ngModel)]="usu.activo" name="activo" value="N"> NO</label>
                 </div>
             </div>
         </form>

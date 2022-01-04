@@ -40,21 +40,19 @@ public class RolRestController {
 
 		return rolService.findById(id);
 	}
-	
-	
-	
+
 	@PostMapping("/usuarios")
 	@ResponseStatus(HttpStatus.CREATED) 
 	public Usuario create(@RequestBody Usuario usuario) {
 		return rolService.save(usuario);
   }
 	
-	@PutMapping("/usuarios/update/{id}")
+	@PutMapping("/usuarios/{id}")
 	@ResponseStatus(HttpStatus.CREATED) 
 	public Usuario update(@RequestBody Usuario usuario,@PathVariable Long id) {
 		Usuario usuarioActual = rolService.findById(id);
 		
-		usuarioActual.setId_rol(usuario.getId_rol());
+		usuarioActual.setRol(usuario.getRol());
 		usuarioActual.setNombre(usuario.getNombre());
 		usuarioActual.setActivo(usuario.getActivo());
 		

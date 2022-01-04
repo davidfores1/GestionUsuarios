@@ -8,35 +8,58 @@ import { UsuarioService } from './usuario.service';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
-  private usu: Usuario = new Usuario();
 
+  roles=[
+    {id:1, nombre:'Admin'},
+    {id:2, nombre:'Auditor'},
+    {id:3, nombre:'Aux'}
+  ]
+
+  private usu: Usuario = new Usuario();
   usuarios: Usuario[];
+  usuari: Usuario;
+  rol:any;
+  isPresent:boolean = false;
 
   constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit() {
     this.usuarioService.getUsuarios().subscribe(
-      usuarios => this.usuarios = usuarios
+      usuarios => {
+           
+        this.usuarios = usuarios
+
+        // console.log(this.usuarios);
+      } 
 
     );
+  
   }
 
   selectUser(user: Usuario) {
+    this.rol = user.rol.id;
     this.usu = user;
+    console.log(this.usu);
+    this.isPresent = true;
   }
  
-  create(): void {
-    this.usuarioService.create(this.usu)
-      .subscribe(usu => {
-        console.log(usu);
-      }
-      );
+  create(user: Usuario): void {
+    this.usuari = new Usuario();
+
+    console.log(this.usuari);
+    
+    
+    // this.usuarioService.create(this.usuari)
+    // .subscribe( usu => {
+    //   location.reload();
+    // },);
   }
 
   update():void{
+    this.usu.rol.id = this.rol;
     this.usuarioService.update(this.usu)
     .subscribe( usu => {
-      console.log(usu); 
+      location.reload();
     },);
   }
 

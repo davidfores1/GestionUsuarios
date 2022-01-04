@@ -14,15 +14,15 @@ public class Rol implements Serializable{
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_rol;
+	private Long id;
 	private String nombre;
 
-	public Long getId_rol() {
-		return id_rol;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId_rol(Long id_rol) {
-		this.id_rol = id_rol;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNombre() {

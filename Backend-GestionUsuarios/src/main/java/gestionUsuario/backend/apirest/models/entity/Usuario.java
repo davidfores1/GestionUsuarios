@@ -21,25 +21,23 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_usuario;
-    
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="id_rol")
-	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-	private Rol id_rol;
 
 	private String nombre;
 	
 	@Column(name="activo", columnDefinition = "CHAR", length = 2)
     private String activo;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_rol")
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private Rol rol;
 	
-	
-	public Rol getId_rol() {
-		return id_rol;
+	public Rol getRol() {
+		return rol;
 	}
 
-	public void setId_rol(Rol id_rol) {
-		this.id_rol = id_rol;
+	public void setRol(Rol rol) {
+		this.rol = rol;
 	}
 
 
