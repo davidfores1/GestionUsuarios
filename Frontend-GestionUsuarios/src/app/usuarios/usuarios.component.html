@@ -12,13 +12,17 @@
         </div>
 
         <div class="form-group row">
-            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm" style="max-width: 20%; padding-right: 1px;">Nombre</label>
+            <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm"
+                style="max-width: 20%; padding-right: 1px;">Nombre</label>
             <div class="col-sm-7">
                 <input type="text" class="form-control form-control-sm" id="colFormLabelSm">
             </div>
         </div>
 
         <h6 class="card-title">Lista de usuarios</h6>
+        <div style="margin-bottom: 8px;">
+            <button class="btn btn-primary btn-sm" (click)='crear()'>Crear</button>
+        </div>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -54,14 +58,16 @@
             </div>
 
             <div class="form-group row">
-                <label for="nombre" class="col-sm-2 col-form-label col-form-label-sm " style="max-width: 20%; padding-right: 3px;">Nombre</label>
+                <label for="nombre" class="col-sm-2 col-form-label col-form-label-sm "
+                    style="max-width: 20%; padding-right: 3px;">Nombre</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="usu.nombre" name="nombre">
+                    <input type="text" class="form-control form-control-sm" #swiper [(ngModel)]="usu.nombre" name="nombre" id="nombre">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm" style="max-width: 17%;">Rol</label>
+                <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm"
+                    style="max-width: 17%;">Rol</label>
                 <div class="col-sm-7">
                     <select class="form-control form-control-sm" [(ngModel)]="rol" name="rol.id">
                         <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
@@ -70,7 +76,8 @@
             </div>
 
             <div class="form-group row">
-                <label for="activo" class="col-sm-2 col-form-label col-form-label-sm" style="padding-right: 4px;">Activo</label>
+                <label for="activo" class="col-sm-2 col-form-label col-form-label-sm"
+                    style="padding-right: 4px;">Activo</label>
                 <div class="col-sm-7">
                     <label><input type="radio" [(ngModel)]="usu.activo" name="activo" value="S"> SI</label>
                     <label><input type="radio" [(ngModel)]="usu.activo" name="activo" value="N"> NO</label>

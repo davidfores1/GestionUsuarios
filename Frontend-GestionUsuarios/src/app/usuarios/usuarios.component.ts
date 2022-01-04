@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Usuario } from './usuario';
 import { UsuarioService } from './usuario.service';
 
@@ -14,6 +14,8 @@ export class UsuariosComponent implements OnInit {
     {id:2, nombre:'Auditor'},
     {id:3, nombre:'Aux'}
   ]
+
+  @ViewChild('swiper') swiper: ElementRef;
 
   private usu: Usuario = new Usuario();
   usuarios: Usuario[];
@@ -43,33 +45,42 @@ export class UsuariosComponent implements OnInit {
     this.isPresent = true;
   }
  
-  create(user: Usuario): void {
-    this.usuari = new Usuario();
+  create(usu: Usuario): void {    
+    
+    const course = {
+      "rol": {
+      "id": this.rol,
+      } 
+    };
 
-    console.log(this.usuari);
+    const finalResult = Object.assign(usu,course);
+    console.log(finalResult);
     
-    
-    // this.usuarioService.create(this.usuari)
-    // .subscribe( usu => {
-    //   location.reload();
-    // },);
+    this.usuarioService.create(finalResult)
+    .subscribe( finalResult => {
+      this.ngOnInit();
+    },);
   }
 
   update():void{
     this.usu.rol.id = this.rol;
     this.usuarioService.update(this.usu)
     .subscribe( usu => {
-      location.reload();
+      this.ngOnInit();
     },);
   }
 
   delete() {
     this.usuarioService.delete(this.usu['id_usuario']).subscribe(res => {
       console.log(res);
-      location.reload();
+      this.ngOnInit();
     }, error1 => {
       console.error(error1);
     });
+  }
+
+  crear(){
+    this.swiper.nativeElement.focus();
   }
 
 }
