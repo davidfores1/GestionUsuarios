@@ -31,7 +31,7 @@
                     <th>id</th>
                     <th>Nombre</th>
                     <th>Rol</th>
-                    <th>activo</th>
+                    <th>Activo</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,15 +48,15 @@
         <form>
             <h5 class="card-title">Información del Usuario</h5>
             <div>
-                <button class="btn btn-primary btn-sm" [disabled]="bloquearCrear" (click)='create(usu)'>Guardar</button>
-                <button class="btn btn-primary btn-sm" [disabled]="bloquear" (click)='update(usu)'>Editar</button>
+                <button class="btn btn-primary btn-sm" [disabled]="bloquearCrear" (click)='create(datoUsuario)'>Guardar</button>
+                <button class="btn btn-primary btn-sm" [disabled]="bloquear" (click)='update(datoUsuario)'>Editar</button>
                 <button class="btn btn-primary btn-sm" [disabled]="bloquear" (click)='delete(usuario)'>Eliminar</button>
             </div>
             <br>
             <div class="form-group row" *ngIf="isPresent">
-                <label for="id" class="col-sm-2 col-form-label col-form-label-sm">Id</label>
+                <label for="id" class="col-sm-2 col-form-label col-form-label-sm" style="max-width: 15%; padding-right: 3px;">Id</label>
                 <div class="col-sm-7">
-                    <input type="number" class="form-control form-control-sm" #id [value]="usu.id_usuario" readonly>
+                    <input type="number" class="form-control form-control-sm" #id [value]="datoUsuario.id_usuario" readonly>
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
                     <h6>Nombre:</h6>
                 </label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" #nombre [(ngModel)]="usu.nombre"
+                    <input type="text" class="form-control form-control-sm" #nombre [(ngModel)]="datoUsuario.nombre"
                         name="nombre" id="nombre">
                 </div>
             </div>
@@ -87,8 +87,8 @@
                     <h6>Activo:</h6>
                 </label>
                 <div class="col-sm-7">
-                    <label><input type="radio" #activo [(ngModel)]="usu.activo" name="activo" value="SI"> SI</label>
-                    <label><input type="radio" #activo2 [(ngModel)]="usu.activo" name="activo" value="NO"> NO</label>
+                    <label><input type="radio" #activo [(ngModel)]="datoUsuario.activo" name="activo" value="SI"> SI</label>
+                    <label><input type="radio" #activo2 [(ngModel)]="datoUsuario.activo" name="activo" value="NO"> NO</label>
                 </div>
             </div>
         </form>

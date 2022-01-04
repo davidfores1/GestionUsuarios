@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Usuario } from './usuario';
-import { UsuarioService } from './usuario.service';
+import { Usuario } from '../modelos/usuario';
+import { UsuarioService } from '../servicios/usuario.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -16,14 +16,13 @@ export class UsuariosComponent implements OnInit {
   @ViewChild('activo2') activo2: ElementRef;
 
   roles = [
-    { id: 1, nombre: 'Admin' },
+    { id: 1, nombre: 'Administrador' },
     { id: 2, nombre: 'Auditor' },
-    { id: 3, nombre: 'Aux' }
+    { id: 3, nombre: 'Auxiliar' }
   ]
 
-  private usu: Usuario = new Usuario();
+  private datoUsuario: Usuario = new Usuario();
   usuarios: Usuario[];
-  usuari: Usuario;
   rol: any;
 
   isPresent: boolean = false;
@@ -37,14 +36,13 @@ export class UsuariosComponent implements OnInit {
       usuarios => {
 
         this.usuarios = usuarios
-
-        this.limpiar();
         this.isPresent = false;
         this.bloquearCrear = false;
       }
 
 
     );
+    this.limpiar();
     this.bloquear = true;
   }
 
@@ -53,31 +51,31 @@ export class UsuariosComponent implements OnInit {
     this.bloquear = false;
     this.bloquearCrear = true;
     this.rol = user.rol.id;
-    this.usu = user;
-    console.log(this.usu);
+    this.datoUsuario = user;
     this.isPresent = true;
   }
 
-  create(usu: Usuario): void {
+  create(usuarioCrear: Usuario): void {
 
-    const course = {
+    const rolId = {
       "rol": {
         "id": this.rol,
       }
     };
 
-    const finalResult = Object.assign(usu, course);
-    console.log(finalResult);
-
+    const finalResult = Object.assign(usuarioCrear, rolId);
     this.usuarioService.create(finalResult)
       .subscribe(finalResult => {
+
         this.ngOnInit();
+
       });
   }
 
   update(): void {
-    this.usu.rol.id = this.rol;
-    this.usuarioService.update(this.usu)
+
+    this.datoUsuario.rol.id = this.rol;
+    this.usuarioService.update(this.datoUsuario)
       .subscribe(usu => {
         location.reload();
       });
@@ -85,7 +83,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   delete() {
-    this.usuarioService.delete(this.usu['id_usuario']).subscribe(res => {
+    this.usuarioService.delete(this.datoUsuario['id_usuario']).subscribe(res => {
       console.log(res);
       this.ngOnInit();
     }, error1 => {
@@ -94,7 +92,6 @@ export class UsuariosComponent implements OnInit {
   }
 
   crear() {
-    this.ngOnInit();
     this.bloquear = true;
     this.bloquearCrear = false;
     this.isPresent = false;
@@ -103,7 +100,6 @@ export class UsuariosComponent implements OnInit {
 
   limpiar() {
 
-    this.id.nativeElement.value = '';
     this.nombre.nativeElement.value = '';
     this.role.nativeElement.value = '';
     this.activo.nativeElement.value = '';

@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
-import { UsuarioService } from './usuarios/usuario.service';
+import { UsuarioService } from './servicios/usuario.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
