@@ -9,19 +9,26 @@ import { UsuarioService } from './usuario.service';
 })
 export class UsuariosComponent implements OnInit {
 
+  @ViewChild('id') id: ElementRef;
+  @ViewChild('nombre') nombre: ElementRef;
+  @ViewChild('role') role: ElementRef;
+  @ViewChild('activo') activo: ElementRef;
+  @ViewChild('activo2') activo2: ElementRef;
+
   roles=[
     {id:1, nombre:'Admin'},
     {id:2, nombre:'Auditor'},
     {id:3, nombre:'Aux'}
   ]
 
-  @ViewChild('swiper') swiper: ElementRef;
-
   private usu: Usuario = new Usuario();
   usuarios: Usuario[];
   usuari: Usuario;
   rol:any;
+  
   isPresent:boolean = false;
+  bloquearCrear: boolean = false;
+  bloquear: boolean = false;
 
   constructor(private usuarioService: UsuarioService) { }
 
@@ -31,14 +38,20 @@ export class UsuariosComponent implements OnInit {
            
         this.usuarios = usuarios
 
-        // console.log(this.usuarios);
+        this.limpiar();
+        this.isPresent = false;
+        this.bloquearCrear = false;
       } 
 
+
     );
-  
+    this.bloquear = true;
   }
 
   selectUser(user: Usuario) {
+    
+    this.bloquear = false;
+    this.bloquearCrear = true;
     this.rol = user.rol.id;
     this.usu = user;
     console.log(this.usu);
@@ -66,8 +79,9 @@ export class UsuariosComponent implements OnInit {
     this.usu.rol.id = this.rol;
     this.usuarioService.update(this.usu)
     .subscribe( usu => {
-      this.ngOnInit();
+      location.reload();
     },);
+    
   }
 
   delete() {
@@ -80,7 +94,23 @@ export class UsuariosComponent implements OnInit {
   }
 
   crear(){
-    this.swiper.nativeElement.focus();
+    
+    location.reload();
+    this.nombre.nativeElement.focus();
+    this.bloquear = true;
+    this.bloquearCrear = false;
+    this.isPresent = false;
+
+  }
+
+  limpiar(){
+
+    this.id.nativeElement.value = '';
+    this.nombre.nativeElement.value = '';
+    this.role.nativeElement.value = '';
+    this.activo.nativeElement.value = '';
+    this.activo2.nativeElement.value = '';
+
   }
 
 }

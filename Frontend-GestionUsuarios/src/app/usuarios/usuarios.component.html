@@ -42,18 +42,18 @@
             </tbody>
         </table>
         <br>
-        <form>
+        <form *ngIf="!inicio">
             <h6 class="card-title">Información del Usuario</h6>
             <div>
-                <button class="btn btn-primary btn-sm" (click)='create(usu)'>Guardar</button>
-                <button class="btn btn-primary btn-sm" (click)='update(usu)'>Editar</button>
-                <button class="btn btn-primary btn-sm" (click)='delete(usuario)'>Eliminar</button>
+                <button class="btn btn-primary btn-sm" [disabled]="bloquearCrear" (click)='create(usu)'>Guardar</button>
+                <button class="btn btn-primary btn-sm" [disabled]="bloquear" (click)='update(usu)'>Editar</button>
+                <button class="btn btn-primary btn-sm" [disabled]="bloquear" (click)='delete(usuario)'>Eliminar</button>
             </div>
             <br>
             <div class="form-group row" *ngIf="isPresent">
                 <label for="id" class="col-sm-2 col-form-label col-form-label-sm">Id</label>
                 <div class="col-sm-7">
-                    <input type="number" class="form-control form-control-sm" [value]="usu.id_usuario" readonly>
+                    <input type="number" class="form-control form-control-sm" #id [value]="usu.id_usuario" readonly>
                 </div>
             </div>
 
@@ -61,7 +61,7 @@
                 <label for="nombre" class="col-sm-2 col-form-label col-form-label-sm "
                     style="max-width: 20%; padding-right: 3px;">Nombre</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control form-control-sm" #swiper [(ngModel)]="usu.nombre" name="nombre" id="nombre">
+                    <input type="text" class="form-control form-control-sm" #nombre [(ngModel)]="usu.nombre" name="nombre" id="nombre">
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                 <label for="colFormLabelSm" class="col-sm-3 col-form-label col-form-label-sm"
                     style="max-width: 17%;">Rol</label>
                 <div class="col-sm-7">
-                    <select class="form-control form-control-sm" [(ngModel)]="rol" name="rol.id">
+                    <select class="form-control form-control-sm" #role [(ngModel)]="rol" name="rol.id">
                         <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
                     </select>
                 </div>
@@ -79,8 +79,8 @@
                 <label for="activo" class="col-sm-2 col-form-label col-form-label-sm"
                     style="padding-right: 4px;">Activo</label>
                 <div class="col-sm-7">
-                    <label><input type="radio" [(ngModel)]="usu.activo" name="activo" value="S"> SI</label>
-                    <label><input type="radio" [(ngModel)]="usu.activo" name="activo" value="N"> NO</label>
+                    <label><input type="radio" #activo [(ngModel)]="usu.activo"  name="activo" value="S"> SI</label>
+                    <label><input type="radio" #activo2 [(ngModel)]="usu.activo" name="activo" value="N"> NO</label>
                 </div>
             </div>
         </form>
