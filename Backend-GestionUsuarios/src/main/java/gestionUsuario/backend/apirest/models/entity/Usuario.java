@@ -22,9 +22,10 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_usuario;
 
+	@Column(nullable = false, unique = true, length = 60)
 	private String nombre;
-	
-	@Column(name="activo", columnDefinition = "CHAR", length = 2)
+
+	@Column(name="activo",nullable = false, columnDefinition = "CHAR", length = 2)
     private String activo;
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -15,18 +15,18 @@ export class UsuariosComponent implements OnInit {
   @ViewChild('activo') activo: ElementRef;
   @ViewChild('activo2') activo2: ElementRef;
 
-  roles=[
-    {id:1, nombre:'Admin'},
-    {id:2, nombre:'Auditor'},
-    {id:3, nombre:'Aux'}
+  roles = [
+    { id: 1, nombre: 'Admin' },
+    { id: 2, nombre: 'Auditor' },
+    { id: 3, nombre: 'Aux' }
   ]
 
   private usu: Usuario = new Usuario();
   usuarios: Usuario[];
   usuari: Usuario;
-  rol:any;
-  
-  isPresent:boolean = false;
+  rol: any;
+
+  isPresent: boolean = false;
   bloquearCrear: boolean = false;
   bloquear: boolean = false;
 
@@ -35,13 +35,13 @@ export class UsuariosComponent implements OnInit {
   ngOnInit() {
     this.usuarioService.getUsuarios().subscribe(
       usuarios => {
-           
+
         this.usuarios = usuarios
 
         this.limpiar();
         this.isPresent = false;
         this.bloquearCrear = false;
-      } 
+      }
 
 
     );
@@ -49,7 +49,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   selectUser(user: Usuario) {
-    
+
     this.bloquear = false;
     this.bloquearCrear = true;
     this.rol = user.rol.id;
@@ -57,31 +57,31 @@ export class UsuariosComponent implements OnInit {
     console.log(this.usu);
     this.isPresent = true;
   }
- 
-  create(usu: Usuario): void {    
-    
+
+  create(usu: Usuario): void {
+
     const course = {
       "rol": {
-      "id": this.rol,
-      } 
+        "id": this.rol,
+      }
     };
 
-    const finalResult = Object.assign(usu,course);
+    const finalResult = Object.assign(usu, course);
     console.log(finalResult);
-    
+
     this.usuarioService.create(finalResult)
-    .subscribe( finalResult => {
-      this.ngOnInit();
-    },);
+      .subscribe(finalResult => {
+        this.ngOnInit();
+      });
   }
 
-  update():void{
+  update(): void {
     this.usu.rol.id = this.rol;
     this.usuarioService.update(this.usu)
-    .subscribe( usu => {
-      location.reload();
-    },);
-    
+      .subscribe(usu => {
+        location.reload();
+      });
+
   }
 
   delete() {
@@ -93,17 +93,15 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
-  crear(){
-    
-    location.reload();
-    this.nombre.nativeElement.focus();
+  crear() {
+    this.ngOnInit();
     this.bloquear = true;
     this.bloquearCrear = false;
     this.isPresent = false;
-
+    this.nombre.nativeElement.focus();
   }
 
-  limpiar(){
+  limpiar() {
 
     this.id.nativeElement.value = '';
     this.nombre.nativeElement.value = '';
