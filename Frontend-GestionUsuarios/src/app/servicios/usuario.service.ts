@@ -6,12 +6,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class UsuarioService {
   private urlEndPoint: string = 'http://localhost:8080/api/usuarios';
+  private urlEndPoint2: string = 'http://localhost:8080/api/usuario';
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'})
 
   constructor(private http: HttpClient) { }
 
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.urlEndPoint);
+  }
+
+  getUsuario(query:String): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.urlEndPoint2}/${query}`);
   }
 
   create(usuario: Usuario): Observable<Usuario> {

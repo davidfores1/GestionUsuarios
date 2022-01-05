@@ -24,25 +24,49 @@ export class UsuariosComponent implements OnInit {
   private datoUsuario: Usuario = new Usuario();
   usuarios: Usuario[];
   rol: any;
+  query:string = '';
 
   isPresent: boolean = false;
   bloquearCrear: boolean = false;
   bloquear: boolean = false;
+  formulario: boolean = true;
 
   constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit() {
-    this.usuarioService.getUsuarios().subscribe(
+    console.log(this.query);
+     
+    if(this.query === ''){
+
+      this.usuarioService.getUsuarios().subscribe(
+        usuarios => {
+  
+          console.log(usuarios);
+           
+  
+          this.usuarios = usuarios
+          this.isPresent = false;
+          this.bloquearCrear = false;
+          this.formulario = false;
+        }
+  
+      );
+
+    }else{
+    this.usuarioService.getUsuario(this.query).subscribe(
       usuarios => {
+
+        console.log(usuarios);
+         
 
         this.usuarios = usuarios
         this.isPresent = false;
         this.bloquearCrear = false;
+        this.formulario = false;
       }
 
-
     );
-    this.limpiar();
+  }
     this.bloquear = true;
   }
 
@@ -53,6 +77,7 @@ export class UsuariosComponent implements OnInit {
     this.rol = user.rol.id;
     this.datoUsuario = user;
     this.isPresent = true;
+    this.formulario =  true;
   }
 
   create(usuarioCrear: Usuario): void {
@@ -67,7 +92,7 @@ export class UsuariosComponent implements OnInit {
     this.usuarioService.create(finalResult)
       .subscribe(finalResult => {
 
-        this.ngOnInit();
+        location.reload();
 
       });
   }
@@ -85,17 +110,22 @@ export class UsuariosComponent implements OnInit {
   delete() {
     this.usuarioService.delete(this.datoUsuario['id_usuario']).subscribe(res => {
       console.log(res);
-      this.ngOnInit();
+      location.reload();
     }, error1 => {
       console.error(error1);
     });
   }
 
   crear() {
+
     this.bloquear = true;
     this.bloquearCrear = false;
     this.isPresent = false;
+    this.formulario =  true;
+
+    this.limpiar();
     this.nombre.nativeElement.focus();
+    
   }
 
   limpiar() {

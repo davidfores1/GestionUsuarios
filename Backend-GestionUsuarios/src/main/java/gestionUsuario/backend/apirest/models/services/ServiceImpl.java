@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import gestionUsuario.backend.apirest.models.dao.IusuarioDao;
-import gestionUsuario.backend.apirest.models.entity.Rol;
 import gestionUsuario.backend.apirest.models.entity.Usuario;
 
 @Service
@@ -47,5 +46,12 @@ public class ServiceImpl implements IService {
 		usuarioDao.deleteById(id);
 		
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Usuario> buscarPorNombre(String nombre) {
+		return usuarioDao.findByNombre(nombre);
+	}
+
 
 }
