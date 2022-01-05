@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import gestionUsuario.backend.apirest.models.dao.IusuarioDao;
+import gestionUsuario.backend.apirest.models.dao.IUsuarioDao;
 import gestionUsuario.backend.apirest.models.entity.Usuario;
 
 @Service
 public class ServiceImpl implements IService {
 
 	@Autowired
-	private IusuarioDao usuarioDao ;
+	private IUsuarioDao usuarioDao ;
 	
 	
 	@Override

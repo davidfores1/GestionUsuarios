@@ -28,19 +28,19 @@ import gestionUsuario.backend.apirest.models.services.IService;
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api")
-public class RolRestController {
+public class UserlRestController {
 
 	@Autowired
-	private IService rolService;
+	private IService userService;
 
 	@GetMapping("/usuarios")
 	public List<Usuario> index(){
-		return rolService.findAll();
+		return userService.findAll();
 	}
 
 	@GetMapping("/usuario/{nombre}")
 	public List<Usuario> search(@PathVariable String nombre){
-			 return rolService.buscarPorNombre(nombre);
+			 return userService.buscarPorNombre(nombre);
 	}
 
 	@PostMapping("/usuarios")
@@ -62,7 +62,7 @@ public class RolRestController {
 		}
 
 		try {
-			usuarioNew = rolService.save(usuario);
+			usuarioNew = userService.save(usuario);
 		} catch(DataAccessException e) {
 			response.put("mensaje", "El nombre del usuario es unico y todos los campos son obligatorio");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -77,19 +77,19 @@ public class RolRestController {
 	@PutMapping("/usuarios/{id}")
 	@ResponseStatus(HttpStatus.CREATED) 
 	public Usuario update(@RequestBody Usuario usuario,@PathVariable Long id) {
-		Usuario usuarioActual = rolService.findById(id);
+		Usuario usuarioActual = userService.findById(id);
 		
 		usuarioActual.setRol(usuario.getRol());
 		usuarioActual.setNombre(usuario.getNombre());
 		usuarioActual.setActivo(usuario.getActivo());
 		
-		return rolService.save(usuarioActual);	
+		return userService.save(usuarioActual);
 	}
 	
 	@DeleteMapping("/usuarios/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT) 
 	public void delete(@PathVariable Long id){
-		rolService.delete(id);
+		userService.delete(id);
 	}
 	
 	

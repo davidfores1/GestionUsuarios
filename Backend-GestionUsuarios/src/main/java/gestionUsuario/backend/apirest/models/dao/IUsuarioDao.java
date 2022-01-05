@@ -9,7 +9,7 @@ import gestionUsuario.backend.apirest.models.entity.Usuario;
 import java.util.List;
 
 
-public interface IusuarioDao extends CrudRepository<Usuario, Long>{
+public interface IUsuarioDao extends CrudRepository<Usuario, Long>{
 
 @Query("select u from Usuario u where u.nombre like %?1%")
 public List<Usuario> findByNombre(String nombre);
