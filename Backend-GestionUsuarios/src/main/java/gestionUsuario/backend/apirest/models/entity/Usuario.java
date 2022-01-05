@@ -25,11 +25,11 @@ public class Usuario implements Serializable {
 	@Column(nullable = false, unique = true, length = 60)
 	private String nombre;
 
-	@Column(name="activo",nullable = false, columnDefinition = "CHAR", length = 2)
+	@Column(name="activo",nullable = false, length = 2, columnDefinition = "char(2)")
     private String activo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="id_rol")
+	@JoinColumn(name="id_rol", nullable = false)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Rol rol;
 	

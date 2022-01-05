@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../modelos/usuario';
-import { Observable} from 'rxjs/Observable';
+import { _throw} from 'rxjs/observable/throw';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UsuarioService {
@@ -21,6 +24,21 @@ export class UsuarioService {
 
   create(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.urlEndPoint, usuario, {headers: this.httpHeaders})
+    .pipe(
+      map((response: any) => response),
+      catchError(e => {
+        if (e.status == 400) {
+          return _throw(e);
+        }
+        if (e.error.mensaje) {
+
+          alert(e.error.mensaje)
+          
+        }
+
+        return _throw(e);
+        
+      }));
   }
 
   update(usuario: Usuario): Observable<Usuario>{

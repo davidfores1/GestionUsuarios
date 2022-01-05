@@ -24,6 +24,7 @@ export class UsuariosComponent implements OnInit {
   usuarios: Usuario[];
   rol: any;
   query:string = '';
+  data:any;
 
   isPresent: boolean = false;
   bloquearCrear: boolean = false;
@@ -81,8 +82,12 @@ export class UsuariosComponent implements OnInit {
 
     const finalResult = Object.assign(usuarioCrear, rolId);
     this.usuarioService.create(finalResult)
-      .subscribe(finalResult => {
+      .subscribe(res => {
 
+        this.data = res;
+
+        alert(this.data.mensaje);
+        
         this.limpiar();
         this.ngOnInit();
 
