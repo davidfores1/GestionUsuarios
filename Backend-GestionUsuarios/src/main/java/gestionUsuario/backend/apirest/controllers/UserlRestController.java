@@ -39,7 +39,7 @@ public class UserlRestController {
         return userService.findAll();
     }
 
-    @GetMapping("/usuario/{nombre}")
+    @GetMapping("/usuarios/{nombre}")
     public List<Usuario> search(@PathVariable String nombre) {
         return userService.buscarPorNombre(nombre);
     }

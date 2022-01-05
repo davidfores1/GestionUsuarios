@@ -10,6 +10,7 @@ import { UsuarioService } from '../servicios/usuario.service';
 })
 export class UsuariosComponent implements OnInit {
 
+  // Acceder a elementos DOM
   @ViewChild('id') id: ElementRef;
   @ViewChild('nombre') nombre: ElementRef;
   @ViewChild('role') role: ElementRef;
@@ -31,7 +32,7 @@ export class UsuariosComponent implements OnInit {
   ngOnInit() {
 
     if (this.query === '') {
-
+        //  Trae todos los usuarios
       this.usuarioService.getUsuarios().subscribe(
         usuarios => {
 
@@ -44,6 +45,7 @@ export class UsuariosComponent implements OnInit {
       );
 
     } else {
+          //  Trae el o los usuario consultado
       this.usuarioService.getUsuario(this.query).subscribe(
         usuarios => {
 
@@ -55,7 +57,7 @@ export class UsuariosComponent implements OnInit {
 
       );
     }
-    
+        //  Trae todos los roles
       this.usuarioService.getRoles().subscribe(
         roles => {
 
@@ -71,6 +73,7 @@ export class UsuariosComponent implements OnInit {
     
   }
 
+      //  envia el usuario seleccionado
   selectUser(user: Usuario) {
     this.bloquear = false;
     this.bloquearCrear = true;
@@ -79,6 +82,7 @@ export class UsuariosComponent implements OnInit {
     this.isPresent = true;
   }
 
+        //  Crea Usuario
   create(usuarioCrear: Usuario): void {
     const rolId = {
       "rol": {
@@ -97,7 +101,7 @@ export class UsuariosComponent implements OnInit {
 
       });
   }
-
+      //  Actualiza usuario
   update(): void {
     this.datoUsuario.rol.id = this.rol;
     this.usuarioService.update(this.datoUsuario)
@@ -107,7 +111,7 @@ export class UsuariosComponent implements OnInit {
 
       });
   }
-
+      //  Elimina usuario
   delete() {
     this.usuarioService.delete(this.datoUsuario['id_usuario']).subscribe(res => {
 
@@ -116,7 +120,7 @@ export class UsuariosComponent implements OnInit {
 
     });
   }
-
+      //  envia al formulario para crear usuario
   crear() {
     this.bloquear = true;
     this.bloquearCrear = false;
@@ -126,11 +130,13 @@ export class UsuariosComponent implements OnInit {
     this.nombre.nativeElement.focus();
   }
 
+        //  limpia inputs del formulario
   limpiar() {
     this.nombre.nativeElement.value = '';
     this.role.nativeElement.value = '';
   }
 
+  //  limpia input de consulta
   limpiarConsutar() {
     this.query = '';
     this.consultar.nativeElement.value = '';

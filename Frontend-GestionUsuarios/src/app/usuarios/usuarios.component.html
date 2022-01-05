@@ -6,6 +6,7 @@
 
         <h5 class="card-title">Parametros de busqueda</h5>
         <div style="margin-bottom: 8px;">
+            <!-- Botones para consultar por nombre y limpiar input  -->
             <button class="btn btn-primary btn-sm"(click)="ngOnInit()">Consultar</button>
             <button class="btn btn-primary btn-sm" (click)="limpiarConsutar()">Limpiar</button>
         </div>
@@ -16,6 +17,7 @@
                 <h6>Nombre:</h6>
             </label>
             <div class="col-sm-7">
+                <!-- Input para consultar por nombre -->
                 <input type="text" class="form-control form-control-sm" type="buscar" id="colFormLabelSm" #consultar [(ngModel)]="query">
             </div>
         </div>
@@ -26,6 +28,7 @@
             <button class="btn btn-primary btn-sm" (click)='crear()'>Crear</button>
         </div>
 
+        <!-- Tabla de los usuario-->
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -46,6 +49,7 @@
         </table>
         <br>
 
+        <!-- Formulario para crear, editar y eliminar datos -->
         <form>
             <h5 class="card-title">Información del Usuario</h5>
             <div>
