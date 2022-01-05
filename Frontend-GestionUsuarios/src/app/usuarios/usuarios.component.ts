@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Rol } from '../modelos/Rol';
 import { Usuario } from '../modelos/usuario';
 import { UsuarioService } from '../servicios/usuario.service';
 
@@ -14,72 +15,76 @@ export class UsuariosComponent implements OnInit {
   @ViewChild('role') role: ElementRef;
   @ViewChild('consultar') consultar: ElementRef;
 
-  roles = [
-    { id: 1, nombre: 'Administrador' },
-    { id: 2, nombre: 'Auditor' },
-    { id: 3, nombre: 'Auxiliar' }
-  ]
-
   private datoUsuario: Usuario = new Usuario();
   usuarios: Usuario[];
   rol: any;
-  query:string = '';
-  data:any;
+  query: string = '';
+  data: any;
+  roles:Rol[];
 
   isPresent: boolean = false;
   bloquearCrear: boolean = false;
   bloquear: boolean = false;
-  
+
   constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit() {
-    
-    if(this.query === ''){
+
+    if (this.query === '') {
 
       this.usuarioService.getUsuarios().subscribe(
         usuarios => {
-           
+
           this.usuarios = usuarios
+          this.isPresent = false;
+          this.bloquearCrear = false;
+          this.limpiar();
+        }
+
+      );
+
+    } else {
+      this.usuarioService.getUsuario(this.query).subscribe(
+        usuarios => {
+
+          this.usuarios = usuarios
+          this.isPresent = false;
+          this.bloquearCrear = false;
+          this.limpiar();
+        }
+
+      );
+    }
+    
+      this.usuarioService.getRoles().subscribe(
+        roles => {
+
+          this.roles = roles
           this.isPresent = false;
           this.bloquearCrear = false;
 
         }
-  
+
       );
-
-    }else{
-    this.usuarioService.getUsuario(this.query).subscribe(
-      usuarios => {
-         
-        this.usuarios = usuarios
-        this.isPresent = false;
-        this.bloquearCrear = false;
-
-      }
-
-    );
-  }
+    
     this.bloquear = true;
+    
   }
 
   selectUser(user: Usuario) {
-
     this.bloquear = false;
     this.bloquearCrear = true;
     this.rol = user.rol.id;
     this.datoUsuario = user;
     this.isPresent = true;
-
   }
 
   create(usuarioCrear: Usuario): void {
-
     const rolId = {
       "rol": {
         "id": this.rol,
       }
     };
-
     const finalResult = Object.assign(usuarioCrear, rolId);
     this.usuarioService.create(finalResult)
       .subscribe(res => {
@@ -87,28 +92,23 @@ export class UsuariosComponent implements OnInit {
         this.data = res;
 
         alert(this.data.mensaje);
-        
-        this.limpiar();
+
         this.ngOnInit();
 
       });
   }
 
   update(): void {
-
     this.datoUsuario.rol.id = this.rol;
     this.usuarioService.update(this.datoUsuario)
       .subscribe(usu => {
 
-        this.ngOnInit();
-        this.limpiar();
+      location.reload();
 
       });
-
   }
 
   delete() {
-
     this.usuarioService.delete(this.datoUsuario['id_usuario']).subscribe(res => {
 
       this.ngOnInit();
@@ -118,25 +118,20 @@ export class UsuariosComponent implements OnInit {
   }
 
   crear() {
-
     this.bloquear = true;
     this.bloquearCrear = false;
     this.isPresent = false;
 
     this.limpiar();
     this.nombre.nativeElement.focus();
-    
   }
 
   limpiar() {
-
     this.nombre.nativeElement.value = '';
     this.role.nativeElement.value = '';
-
   }
 
-  limpiarConsutar(){
-
+  limpiarConsutar() {
     this.query = '';
     this.consultar.nativeElement.value = '';
     this.ngOnInit();

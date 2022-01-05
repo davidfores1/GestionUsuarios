@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import gestionUsuario.backend.apirest.models.entity.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -30,67 +31,71 @@ import gestionUsuario.backend.apirest.models.services.IService;
 @RequestMapping("/api")
 public class UserlRestController {
 
-	@Autowired
-	private IService userService;
+    @Autowired
+    private IService userService;
 
-	@GetMapping("/usuarios")
-	public List<Usuario> index(){
-		return userService.findAll();
-	}
+    @GetMapping("/usuarios")
+    public List<Usuario> index() {
+        return userService.findAll();
+    }
 
-	@GetMapping("/usuario/{nombre}")
-	public List<Usuario> search(@PathVariable String nombre){
-			 return userService.buscarPorNombre(nombre);
-	}
+    @GetMapping("/usuario/{nombre}")
+    public List<Usuario> search(@PathVariable String nombre) {
+        return userService.buscarPorNombre(nombre);
+    }
 
-	@PostMapping("/usuarios")
-	@ResponseStatus(HttpStatus.CREATED) 
-	public ResponseEntity<?> create(@RequestBody Usuario usuario, BindingResult result) {
+    @PostMapping("/usuarios")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> create(@RequestBody Usuario usuario, BindingResult result) {
 
-		Usuario usuarioNew = null;
-		  Map<String, Object> response = new HashMap<>();
+        Usuario usuarioNew = null;
+        Map<String, Object> response = new HashMap<>();
 
-		if(result.hasErrors()) {
+        if (result.hasErrors()) {
 
-			List<String> errors = result.getFieldErrors()
-					.stream()
-					.map(err -> "El campo '" + err.getField() +"' "+ err.getDefaultMessage())
-					.collect(Collectors.toList());
+            List<String> errors = result.getFieldErrors()
+                    .stream()
+                    .map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
+                    .collect(Collectors.toList());
 
-			response.put("errors", errors);
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
+            response.put("errors", errors);
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+        }
 
-		try {
-			usuarioNew = userService.save(usuario);
-		} catch(DataAccessException e) {
-			response.put("mensaje", "El nombre del usuario es unico y todos los campos son obligatorio");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+        try {
+            usuarioNew = userService.save(usuario);
+        } catch (DataAccessException e) {
+            response.put("mensaje", "El nombre del usuario es unico y todos los campos son obligatorio");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-		response.put("mensaje", "El usuario ha sido creado con éxito!");
-		response.put("usuario", usuarioNew);
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-  }
-	
-	@PutMapping("/usuarios/{id}")
-	@ResponseStatus(HttpStatus.CREATED) 
-	public Usuario update(@RequestBody Usuario usuario,@PathVariable Long id) {
-		Usuario usuarioActual = userService.findById(id);
-		
-		usuarioActual.setRol(usuario.getRol());
-		usuarioActual.setNombre(usuario.getNombre());
-		usuarioActual.setActivo(usuario.getActivo());
-		
-		return userService.save(usuarioActual);
-	}
-	
-	@DeleteMapping("/usuarios/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT) 
-	public void delete(@PathVariable Long id){
-		userService.delete(id);
-	}
-	
-	
+        response.put("mensaje", "El usuario ha sido creado con éxito!");
+        response.put("usuario", usuarioNew);
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/usuarios/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Usuario update(@RequestBody Usuario usuario, @PathVariable Long id) {
+        Usuario usuarioActual = userService.findById(id);
+
+        usuarioActual.setRol(usuario.getRol());
+        usuarioActual.setNombre(usuario.getNombre());
+        usuarioActual.setActivo(usuario.getActivo());
+
+        return userService.save(usuarioActual);
+    }
+
+    @DeleteMapping("/usuarios/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
+    }
+
+    @GetMapping("/roles")
+    public List<Rol> roles() {
+        return userService.todosRoles();
+    }
+
 }

@@ -5,11 +5,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Rol } from '../modelos/Rol';
 
 @Injectable()
 export class UsuarioService {
   private urlEndPoint: string = 'http://localhost:8080/api/usuarios';
   private urlEndPoint2: string = 'http://localhost:8080/api/usuario';
+  private urlEndPoint3: string = 'http://localhost:8080/api/roles';
+
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'})
 
   constructor(private http: HttpClient) { }
@@ -37,7 +40,7 @@ export class UsuarioService {
         }
 
         return _throw(e);
-        
+
       }));
   }
 
@@ -47,6 +50,10 @@ export class UsuarioService {
 
   delete(id: number): Observable<Usuario>{
     return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders})
+  }
+
+  getRoles(): Observable<Rol[]> {
+    return this.http.get<Rol[]>(this.urlEndPoint3);
   }
 
 }

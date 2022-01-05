@@ -17,63 +17,61 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
-    
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_usuario;
 
-	@Column(nullable = false, unique = true, length = 60)
-	private String nombre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_usuario;
 
-	@Column(name="activo",nullable = false, length = 2, columnDefinition = "char(2)")
+    @Column(nullable = false, unique = true, length = 60)
+    private String nombre;
+
+    @Column(name = "activo", nullable = false, length = 2, columnDefinition = "char(2)")
     private String activo;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="id_rol", nullable = false)
-	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	private Rol rol;
-	
-	public Rol getRol() {
-		return rol;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_rol", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Rol rol;
 
-	public void setRol(Rol rol) {
-		this.rol = rol;
-	}
+    public Rol getRol() {
+        return rol;
+    }
 
-
-	public Long getId_usuario() {
-		return id_usuario;
-	}
-
-	public void setId_usuario(Long id_usuario) {
-		this.id_usuario = id_usuario;
-	}
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 
 
-	public String getNombre() {
-		return nombre;
-	}
+    public Long getId_usuario() {
+        return id_usuario;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	
-
-	public String getActivo() {
-		return activo;
-	}
-
-	public void setActivo(String activo) {
-		this.activo = activo;
-	}
+    public void setId_usuario(Long id_usuario) {
+        this.id_usuario = id_usuario;
+    }
 
 
+    public String getNombre() {
+        return nombre;
+    }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+
+    public String getActivo() {
+        return activo;
+    }
+
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
+
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
 }
