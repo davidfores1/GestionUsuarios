@@ -6,8 +6,8 @@
 
         <h5 class="card-title">Parametros de busqueda</h5>
         <div style="margin-bottom: 8px;">
-            <button class="btn btn-primary btn-sm" (click)="ngOnInit()">Consultar</button>
-            <button class="btn btn-primary btn-sm">Limpiar</button>
+            <button class="btn btn-primary btn-sm"(click)="ngOnInit()">Consultar</button>
+            <button class="btn btn-primary btn-sm" (click)="limpiarConsutar()">Limpiar</button>
         </div>
 
         <div class="form-group row">
@@ -16,9 +16,10 @@
                 <h6>Nombre:</h6>
             </label>
             <div class="col-sm-7">
-                <input type="text" class="form-control form-control-sm" type="buscar" id="colFormLabelSm" [(ngModel)]="query">
+                <input type="text" class="form-control form-control-sm" type="buscar" id="colFormLabelSm" #consultar [(ngModel)]="query">
             </div>
         </div>
+
         <br>
         <h5 class="card-title">Lista de usuarios</h5>
         <div style="margin-bottom: 8px;">
@@ -45,7 +46,7 @@
         </table>
         <br>
 
-        <form *ngIf="formulario">
+        <form>
             <h5 class="card-title">Información del Usuario</h5>
             <div>
                 <button class="btn btn-primary btn-sm" [disabled]="bloquearCrear" (click)='create(datoUsuario)'>Guardar</button>
@@ -56,7 +57,7 @@
             <div class="form-group row" *ngIf="isPresent">
                 <label for="id" class="col-sm-2 col-form-label col-form-label-sm" style="max-width: 15%; padding-right: 3px;">Id</label>
                 <div class="col-sm-7">
-                    <input type="number" class="form-control form-control-sm" #id [value]="datoUsuario.id_usuario" name="id" id="id" readonly>
+                    <input type="number" class="form-control form-control-sm" #idUsuario [(ngModel)]="datoUsuario.id_usuario" name="id" id="id" readonly>
                 </div>
             </div>
 

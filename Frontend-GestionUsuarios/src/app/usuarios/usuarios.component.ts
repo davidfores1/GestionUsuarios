@@ -12,8 +12,7 @@ export class UsuariosComponent implements OnInit {
   @ViewChild('id') id: ElementRef;
   @ViewChild('nombre') nombre: ElementRef;
   @ViewChild('role') role: ElementRef;
-  @ViewChild('activo') activo: ElementRef;
-  @ViewChild('activo2') activo2: ElementRef;
+  @ViewChild('consultar') consultar: ElementRef;
 
   roles = [
     { id: 1, nombre: 'Administrador' },
@@ -29,25 +28,20 @@ export class UsuariosComponent implements OnInit {
   isPresent: boolean = false;
   bloquearCrear: boolean = false;
   bloquear: boolean = false;
-  formulario: boolean = true;
-
+  
   constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit() {
-    console.log(this.query);
-     
+    
     if(this.query === ''){
 
       this.usuarioService.getUsuarios().subscribe(
         usuarios => {
-  
-          console.log(usuarios);
            
-  
           this.usuarios = usuarios
           this.isPresent = false;
           this.bloquearCrear = false;
-          this.formulario = false;
+
         }
   
       );
@@ -55,14 +49,11 @@ export class UsuariosComponent implements OnInit {
     }else{
     this.usuarioService.getUsuario(this.query).subscribe(
       usuarios => {
-
-        console.log(usuarios);
          
-
         this.usuarios = usuarios
         this.isPresent = false;
         this.bloquearCrear = false;
-        this.formulario = false;
+
       }
 
     );
@@ -77,7 +68,7 @@ export class UsuariosComponent implements OnInit {
     this.rol = user.rol.id;
     this.datoUsuario = user;
     this.isPresent = true;
-    this.formulario =  true;
+
   }
 
   create(usuarioCrear: Usuario): void {
@@ -92,7 +83,8 @@ export class UsuariosComponent implements OnInit {
     this.usuarioService.create(finalResult)
       .subscribe(finalResult => {
 
-        location.reload();
+        this.limpiar();
+        this.ngOnInit();
 
       });
   }
@@ -102,17 +94,21 @@ export class UsuariosComponent implements OnInit {
     this.datoUsuario.rol.id = this.rol;
     this.usuarioService.update(this.datoUsuario)
       .subscribe(usu => {
-        location.reload();
+
+        this.ngOnInit();
+        this.limpiar();
+
       });
 
   }
 
   delete() {
+
     this.usuarioService.delete(this.datoUsuario['id_usuario']).subscribe(res => {
-      console.log(res);
-      location.reload();
-    }, error1 => {
-      console.error(error1);
+
+      this.ngOnInit();
+      this.limpiar();
+
     });
   }
 
@@ -121,7 +117,6 @@ export class UsuariosComponent implements OnInit {
     this.bloquear = true;
     this.bloquearCrear = false;
     this.isPresent = false;
-    this.formulario =  true;
 
     this.limpiar();
     this.nombre.nativeElement.focus();
@@ -132,9 +127,14 @@ export class UsuariosComponent implements OnInit {
 
     this.nombre.nativeElement.value = '';
     this.role.nativeElement.value = '';
-    this.activo.nativeElement.value = '';
-    this.activo2.nativeElement.value = '';
 
+  }
+
+  limpiarConsutar(){
+
+    this.query = '';
+    this.consultar.nativeElement.value = '';
+    this.ngOnInit();
   }
 
 }
